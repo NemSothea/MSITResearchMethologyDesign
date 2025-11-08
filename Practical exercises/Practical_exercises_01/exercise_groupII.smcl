@@ -1,0 +1,131 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/sothea007/Desktop/AEU's Master Program/AEU MSIT Research Methology and Design/Practical exercises1/exercise_groupII.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 8 Nov 2025, 16:33:44
+
+{com}. rename (clinicid datefirstvisit age sex province maritalstatus occupation education rea writ dailyalcohol tabacco idu yama) (Id firstvidate agerespon sexrespon studypro marstatus occrespon edurespon readrespon writrespon alcuse tobause iduuse yamuse)
+{res}
+{com}. save "/Users/sothea007/Desktop/AEU's Master Program/AEU MSIT Research Methology and Design/Practical exercises1/COC_data_exercise_groupII.dta", replace
+{txt}{p 0 4 2}
+(file {bf}
+/Users/sothea007/Desktop/AEU's Master Program/AEU MSIT Research Methology and Design/Practical exercises1/COC_data_exercise_groupII.dta{rm}
+not found)
+{p_end}
+{p 0 4 2}
+file {bf}
+/Users/sothea007/Desktop/AEU's Master Program/AEU MSIT Research Methology and Design/Practical exercises1/COC_data_exercise_groupII.dta{rm}
+saved
+{p_end}
+
+{com}. label variable Id "Clinic idea of participant"
+
+. label variable firstvidate "Date of first visit"
+
+. label variable agerespon "Age of respondents"
+
+. label variable sexrespon "Sex of respondents"
+
+. label variable studypro "Province that participants were currently living in"
+
+. label variable marstatus "Marital status of participant"
+
+. label variable occrespon "Current occupation of participant."
+
+. label variable edurespon "Education of participant"
+
+. label variable readrespon "Reading ability of respondent"
+
+. label variable writrespon "Writing ability of respondent"
+
+. label variable alcuse "Alcohol use of participant"
+
+. label variable tobause "Tobacco use of participant"
+
+. label variable iduuse "Injected drug use of participant"
+
+. label variable yamuse "Yama use of participant"
+
+. * Create 5-year age groups
+
+. egen agegrp = cut(agerespon), at(0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110) icodes
+
+. label variable agegrp "5-year age groups"
+
+. tab agegrp
+
+ {txt}5-year age {c |}
+     groups {c |}      Freq.     Percent        Cum.
+{hline 12}{c +}{hline 35}
+          3 {c |}{res}          2        0.41        0.41
+{txt}          4 {c |}{res}         30        6.17        6.58
+{txt}          5 {c |}{res}         98       20.16       26.75
+{txt}          6 {c |}{res}        101       20.78       47.53
+{txt}          7 {c |}{res}        123       25.31       72.84
+{txt}          8 {c |}{res}         77       15.84       88.68
+{txt}          9 {c |}{res}         32        6.58       95.27
+{txt}         10 {c |}{res}         15        3.09       98.35
+{txt}         11 {c |}{res}          6        1.23       99.59
+{txt}         12 {c |}{res}          1        0.21       99.79
+{txt}         13 {c |}{res}          1        0.21      100.00
+{txt}{hline 12}{c +}{hline 35}
+      Total {c |}{res}        486      100.00
+
+{com}. codebook marstatus
+
+{txt}{hline}
+{res}marstatus{right:Marital status of participant}
+{txt}{hline}
+
+{col 19}Type: String ({res}str13{txt}), but longest is str9
+
+{col 10}Unique values: {res}4{col 51}{txt}Missing "": {res}7{txt}/{res}486
+
+{txt}{col 13}Tabulation: Freq.  Value
+{col 20}{res}         7{col 32}""
+{col 20}        17{col 32}"Divorced"
+{col 20}       311{col 32}"Married"
+{col 20}        25{col 32}"Single"
+{col 20}       126{col 32}"Widow(er)"
+
+{com}. * Step 2: Check marital status coding
+
+. tab marstatus
+
+      {txt}Marital {c |}
+    status of {c |}
+  participant {c |}      Freq.     Percent        Cum.
+{hline 14}{c +}{hline 35}
+     Divorced {c |}{res}         17        3.55        3.55
+{txt}      Married {c |}{res}        311       64.93       68.48
+{txt}       Single {c |}{res}         25        5.22       73.70
+{txt}    Widow(er) {c |}{res}        126       26.30      100.00
+{txt}{hline 14}{c +}{hline 35}
+        Total {c |}{res}        479      100.00
+
+{com}. * Step 3: Keep only married cases (status=Married)
+
+. keep if marstatus == "Married"
+{txt}(175 observations deleted)
+
+{com}. * Step 3: Verify - should only see Married cases now
+
+. tab marstatus
+
+      {txt}Marital {c |}
+    status of {c |}
+  participant {c |}      Freq.     Percent        Cum.
+{hline 14}{c +}{hline 35}
+      Married {c |}{res}        311      100.00      100.00
+{txt}{hline 14}{c +}{hline 35}
+        Total {c |}{res}        311      100.00
+
+{com}. log off
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/sothea007/Desktop/AEU's Master Program/AEU MSIT Research Methology and Design/Practical exercises1/exercise_groupII.smcl
+  {txt}log type:  {res}smcl
+ {txt}paused on:  {res} 8 Nov 2025, 16:52:16
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
